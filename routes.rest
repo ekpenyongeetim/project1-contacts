@@ -5,3 +5,13 @@ GET http://localhost:3000/contacts
 ###
 
 GET http://localhost:3000/contacts/65a5aff6a8477cbd3115c39c
+
+
+// PRODUCTION
+###
+GET https://project1-contacts-9j38.onrender.com/contacts
+
+###
+
+GET https://project1-contacts-9j38.onrender.com/contacts/65a5aff6a8477cbd3115c39c
+
