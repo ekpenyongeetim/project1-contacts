@@ -1,8 +1,6 @@
+// index.js
 // import express Router
 const routes = require("express").Router();
-
-// import lesson1 to use it's routes
-const lesson1Controller = require("../controllers/lesson1");
 
 // express package comes with get function. use it with the app
 // app.get says if we reach homepage("/") send Hello
@@ -10,9 +8,13 @@ const lesson1Controller = require("../controllers/lesson1");
   res.send("Hello there from express");
 });
 */
-// use this method by calling lesson1 controller
-routes.get("/", lesson1Controller.homeRoute);
-routes.get("/about", lesson1Controller.aboutRoute);
-routes.get("/users", lesson1Controller.usersRoute);
+// Route to homepage
+routes.get("/", (req, res) => {
+  res.send("Hello World");
+});
+
+// route to users page by checking the user.js file
+// when you type /users, go to user.js
+routes.use("/contacts", require("./contacts"));
 
 module.exports = routes;
