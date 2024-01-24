@@ -6,6 +6,32 @@ GET http://localhost:3000/contacts
 
 GET http://localhost:3000/contacts/65a5aff6a8477cbd3115c39c
 
+### Create Contacts
+POST http://localhost:3000/contacts/ HTTP/1.1
+Content-type: application/json
+
+{
+    "firstName": "Jason",
+    "lastName": "Todd",
+    "email": "jt@batcave.com",
+    "favoriteColor": "Brown",
+    "birthday": "18th June 1874"
+}
+
+### PUT contact
+PUT http://localhost:3000/contacts/65a5aff6a8477cbd3115c39c
+Content-type: application/json
+
+{
+    "firstName": "Bob",
+    "lastName": "Marley",
+    "email": "marlianrecords.com",
+    "favoriteColor": "black",
+    "birthday": "10th Mar 1124"
+}
+
+### DELETE contact
+DELETE http://localhost:3000/contacts/65b19a661eb28877d6cca3ed
 
 // PRODUCTION
 ###
