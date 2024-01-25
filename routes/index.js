@@ -2,6 +2,8 @@
 // import express Router
 const routes = require("express").Router();
 
+routes.use("/", require("./swagger"));
+
 // express package comes with get function. use it with the app
 // app.get says if we reach homepage("/") send Hello
 /*app.get("/", (req, res) => {
@@ -10,6 +12,7 @@ const routes = require("express").Router();
 */
 // Route to homepage
 routes.get("/", (req, res) => {
+  //#swagger.tags=["Hello World"]
   res.send("Hello World");
 });
 
