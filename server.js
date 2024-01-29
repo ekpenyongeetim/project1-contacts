@@ -27,6 +27,13 @@ app.use((req, res, next) => {
 // call the routes from the routes folder
 app.use("/", require("./routes"));
 
+process.on("uncaughtException", (err, origin) => {
+  console.log(
+    process.stderr.fd,
+    `Caught exception: ${err}\n` + `Exception origin: ${origin}`
+  );
+});
+
 // listen at port 3000
 mongodb.initDb((err) => {
   if (err) {
