@@ -2,7 +2,7 @@
 const routes = require("express").Router();
 
 const contactsController = require("../controllers/contacts");
-
+const validation = require("../middleware/validate");
 // call the userController function from u../controllers/sers.js
 // get all
 routes.get("/", contactsController.getAll);
@@ -11,10 +11,10 @@ routes.get("/", contactsController.getAll);
 routes.get("/:id", contactsController.getSingle);
 
 // post
-routes.post("/", contactsController.createUser);
+routes.post("/", validation.saveContact, contactsController.createUser);
 
 // put
-routes.put("/:id", contactsController.updateUser);
+routes.put("/:id", validation.saveContact, contactsController.updateUser);
 
 // delete
 routes.delete("/:id", contactsController.deleteUser);

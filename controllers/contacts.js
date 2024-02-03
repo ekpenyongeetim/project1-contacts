@@ -4,7 +4,7 @@ const ObjectId = require("mongodb").ObjectId;
 
 const getAll = (req, res) => {
   mongodb
-    .getDb()
+    .getDatabase()
     .db()
     .collection("contacts")
     .find()
@@ -18,9 +18,12 @@ const getAll = (req, res) => {
 };
 
 const getSingle = (req, res) => {
+  if (!ObjectId.isValid(req.params.id)) {
+    res.status(400).json("Must use a valid contact id to find a contact.");
+  }
   const userId = new ObjectId(req.params.id);
   mongodb
-    .getDb()
+    .getDatabase()
     .db()
     .collection("contacts")
     .find({ _id: userId })
@@ -47,16 +50,21 @@ const createUser = async (req, res) => {
     .db()
     .collection("contacts")
     .insertOne(user);
-  if (response.acknowledged > 0) {
-    res.status(204).send();
+  if (response.acknowledged) {
+    res.status(201).json(response);
   } else {
     res
       .status(500)
-      .json(response.error || "some error occured while adding the user.");
+      .json(
+        response.error || "Some error occurred while creating the contact."
+      );
   }
 };
 
 const updateUser = async (req, res) => {
+  if (!ObjectId.isValid(req.params.id)) {
+    res.status(400).json("Must use a valid contact id to update a contact.");
+  }
   //#swagger.tags=["Contacts"]
   const userId = new ObjectId(req.params.id);
   const user = {
@@ -71,6 +79,7 @@ const updateUser = async (req, res) => {
     .db()
     .collection("contacts")
     .replaceOne({ _id: userId }, user);
+  console.log(response);
   if (response.modifiedCount > 0) {
     res.status(204).send();
   } else {
@@ -81,6 +90,9 @@ const updateUser = async (req, res) => {
 };
 
 const deleteUser = async (req, res) => {
+  if (!ObjectId.isValid(req.params.id)) {
+    res.status(400).json("Must use a valid contact id to delete a contact.");
+  }
   //#swagger.tags=["Contacts"]
   const userId = new ObjectId(req.params.id);
   const response = await mongodb
